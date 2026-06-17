@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manuales de NES en Español</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px 25px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .search-box {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        #searchInput {
+            width: 100%;
+            max-width: 600px;
+            padding: 15px 20px;
+            font-size: 1em;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #searchInput:focus {
+            border-color: #667eea;
+        }
+
+        .categories {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .category-btn {
+            padding: 8px 20px;
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .manuals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .manual-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .manual-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-color: #667eea;
+        }
+
+        .manual-item a {
+            color: #333;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .manual-item a::before {
+            content: "📄";
+            font-size: 1.5em;
+        }
+
+        .manual-item a:hover {
+            color: #667eea;
+        }
+
+        .manual-name {
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .game-code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            color: #667eea;
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .category-section {
+            margin-bottom: 40px;
+        }
+
+        .category-title {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 2px solid #eee;
+            text-align: center;
+            color: #666;
+        }
+
+        .license {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .license h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .license p {
+            color: #856404;
+            line-height: 1.6;
+        }
+
+        .license a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .license a:hover {
+            text-decoration: underline;
+        }
+
+        .cc-icons {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            margin: 10px 0;
+            font-size: 1.5em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .manuals-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 Manuales de NES en Español</h1>
+            <p class="subtitle">Colección completa de manuales de instrucciones de Nintendo Entertainment System</p>
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-number" id="totalCount">0</div>
+                    <div class="stat-label">Manuales totales</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="visibleCount">0</div>
+                    <div class="stat-label">Mostrando</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Buscar manual..." />
+        </div>
+
+        <div class="categories">
+            <button class="category-btn active" data-category="all">Todos</button>
+            <button class="category-btn" data-category="games">Juegos</button>
+            <button class="category-btn" data-category="hardware">Hardware</button>
+            <button class="category-btn" data-category="publicidad">Publicidad</button>
+        </div>
+
+        <div id="manualsContainer"></div>
+
+        <footer>
+            <p>Manuales de NES en Español - Colección preservada con fines educativos y de archivo</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                Estos manuales son propiedad de sus respectivos titulares de derechos de autor.
+            </p>
+
+            <div class="license" style="margin-top: 30px;">
+                <h3>📋 Licencia</h3>
+                <div class="cc-icons">
+                    <span title="Creative Commons">🅭</span>
+                    <span title="Attribution">🅯</span>
+                    <span title="Non-Commercial">🅮</span>
+                    <span title="Share-Alike">🅲</span>
+                </div>
+                <p>
+                    Este contenido está licenciado bajo <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" target="_blank" rel="noopener">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)</a>.
+                </p>
+                <p style="margin-top: 10px; font-size: 0.9em;">
+                    <strong>Fuente original:</strong> <a href="https://www.kaiserland77.com/wikines77/index.php/Manuales_de_NES_en_Espa%C3%B1ol" target="_blank" rel="noopener">WikiNES77 - Kaiserland77</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Game codes extracted via OCR from PDF manuals
+        const gameCodes = {
+            "a-boy-and-his-blob": "NES-B5-ESP",
+            "addams-family": "NES-62-ESP",
+            "adventure-island-part-ii": "NES-V7-ESP",
+            "adventures-in-the-magic-kingdom": "NESNBESP",
+            "adventures-of-bayou-billy": "NES-MU-FRG",
+            "air-fortress": "NES-AI-FRG",
+            "airwolf": "NES-AF-NOE",
+            "alpha-mission": "NES-AM-FRG",
+            "asterix": "NES-AX-ESP",
+            "astyanax": "NES-YX-ESP",
+            "bad-dudes-vs-dragonninja": "NES-55-ESP",
+            "balloon-fight": "NES-BF-ESP",
+            "barker-bills-trick-shooting": "NES-2T-ESP",
+            "baseball": "NES-BA-ESP",
+            "bionic-commando": "NES-CM-FRG",
+            "blades-of-steel": "NES-VS-FRG",
+            "blaster-master": "NES-VM-FRG",
+            "blue-shadow": "NES-27-ESP",
+            "blues-brothers": "NES-4ZESP",
+            "boulder-dash": "NES-XB-ESP",
+            "burai-fighter": "NES-UF-ESP",
+            "captain-planet": "NES-5C-ESP",
+            "captain-skyhawk": "NES-YW-ESP",
+            "castelian": "NES-4C-ESP",
+            "castlevania-ii": "NES-QU-FRG",
+            "chessmaster": "NES-EM-ESP",
+            "chip-n-dale-rescue-rangers": "NES-RU-ESP",
+            "city-connection": "NES-CI-ESP",
+            "cobra-triangle": "NES-CU-ESP",
+            "digger-t-rock": "NES-8D-ESP",
+            "donkey-kong-jr-math": "NES-CA-ESP",
+            "double-dragon-ii": "NES-W2-ESP",
+            "double-dribble": "NES-DW-ESP",
+            "dragons-lair": "NES-L9-ESP",
+            "duck-hunt": "NES-DH-ESP",
+            "duck-tales": "NES-UK-FRG",
+            "dynablaster": "NES-49-ESP",
+            "elite": "NES-EL-ESP",
+            "excitebike": "NES-EB-ESP",
+            "faxanadu": "NES-FX-ESP",
+            "festers-quest": "NES-EQ-FRG",
+            "fighting-golf": "NES-FI-FRG",
+            "flintstones": "NES-57-ESP",
+            "galaga": "NES-AG-FRG",
+            "galaxy-5000": "NES-Y5-ESP",
+            "gauntlet-ii": "NES-2U-FRG",
+            "ghost-n-goblins": "NES-GG-FRG",
+            "ghostbusters-ii": "NES-VV-FRG",
+            "goal": "NES-JG-FRG",
+            "golf": "NES-GF-ESP",
+            "goonies-ii": "NES-GU-ESP",
+            "gradius": "NES-GR-FRG",
+            "guardian-legend": "NES-GD-ESP",
+            "gun-smoke": "NES-GK-FRG",
+            "hogans-alley": "NES-HA-ESP",
+            "hoops": "NES-2B-ESP",
+            "hunt-for-red-october": "NES-7H-ESP",
+            "indiana-jones-last-crusade": "NES-LR-FRA",
+            "jack-nicklaus-greatest-18-holes": "NES-JC-FRG",
+            "jackie-chans-action-kung-fu": "NES-V5-ESP",
+            "joe-and-mac": "NES-CJ-ESP",
+            "kabuki-quantum-fighter": "NES-3K-ESP",
+            "kick-off": "NES-54-ESP",
+            "kickle-cubicle": "NES-QC-ESP",
+            "knight-rider": "NES-NR-FRG",
+            "life-force": "NES-LF-FRG",
+            "little-nemo": "NES-LN-ESP",
+            "little-samson": "NES-LT-ESP",
+            "low-g-man": "NES-L7-ESP",
+            "mach-rider": "NES-MR-ESP",
+            "marble-madness": "NES-MV-ESP",
+            "mario-and-yoshi": "NES-YM-ESP",
+            "mario-bros": "NES-MA-ESP",
+            "mega-man": "NES-MN-FRG",
+            "mega-man-2": "NES-XR-FRG",
+            "mega-man-3": "NES-XU-ESP",
+            "mega-man-4": "NES-4V-ESP",
+            "metal-gear": "NES-ME-FRG",
+            "metroid": "NES-MT-ESP",
+            "mission-impossible": "NES-U4-ESP",
+            "nes-open-tournament-golf": "NES-UG-ESP",
+            "north-and-south": "NES-N5-ESP",
+            "operation-wolf": "NES-OW-ESP",
+            "panic-restaurant": "NES-PR-ESP",
+            "paperboy-2": "NES-Y7-ESP",
+            "phantom-air-mission": "NES-PH-ESP",
+            "pin-bot": "NES-I0-ESP",
+            "power-blade": "NES-7T-FRG",
+            "prince-of-persia": "NES-PA-ESP",
+            "pro-wrestling": "NES-PW-ESP",
+            "probotector": "NES-77-FRG",
+            "punch-out": "NES-OP-ESP",
+            "puzznic": "NES-ZP-FRG",
+            "racket-attack": "NES-RE-FRG",
+            "rainbow-islands": "NES-64-ESP",
+            "rc-pro-am": "NES-PM-ESP",
+            "road-fighter": "NES-39-ESP",
+            "robocop": "NES-CP-ESP",
+            "robocop-3": "NES-R3-ESP",
+            "robowarrior": "NES-RR-FRG",
+            "rodland": "NES-R8-ESP",
+            "section-z": "NES-SZ-FRG",
+            "silent-service": "NES-IV-FRG",
+            "skate-or-die": "NES-DI-ESP",
+            "ski-or-die": "NES-7S-ESP",
+            "smash-tv": "NES-5V-ESP",
+            "snake-rattle-n-roll": "NES-RI-ESP",
+            "snakes-revenge": "NES-E2-ESP",
+            "snow-brothers": "NES-7L-ESP",
+            "soccer": "NES-SC-ESP",
+            "solar-jetman": "NES-LJ-ESP",
+            "solomons-key": "NES-KE-ESP",
+            "spider-man-return-of-sinister-six": "NES-RX-ESP",
+            "star-force": "NESSFO-FRG",
+            "stealth-atf": "NES-LH-ESP",
+            "super-mario-bros": "NES-SM-ESP",
+            "super-mario-bros-2": "NES-MW-ESP",
+            "super-mario-bros-3": "NES-UM-ESP",
+            "super-mario-bros-and-tetris-and-nintendo-world-cup": "NES-Z2-ESP",
+            "super-spike-vball": "NES-VJ-ESP",
+            "super-spy-hunter": "NES-UY-ESP",
+            "super-turrican": "NES-TU-ESP",
+            "sword-master": "NES-8S-ESP",
+            "tale-spin": "NES-68-ESP",
+            "tecmo-world-cup-soccer": "NES-WC-FRG",
+            "tecmo-world-wrestling": "NES-PZ-ESP",
+            "teenage-mutant-hero-turtles": "NES-88-FRG",
+            "tennis": "NES-TE-ESP",
+            "terminator-2": "NES-62-ESP",
+            "tetris": "NES-EI-ESP",
+            "tiger-heli": "NES-TI-ESP",
+            "time-lord": "NES-LZ-ESP",
+            "tom-and-jerry": "NES-5Y-ESP",
+            "top-gun": "NES-TG-FRG",
+            "totally-rad": "NES-6T-ESP",
+            "track-and-field-ii": "NES-F2-ESP",
+            "trojan": "NES-TJ-FRG",
+            "turbo-racing": "NES-44-FRG",
+            "ultimate-air-combat": "NES-3Z-ESP",
+            "werewolf": "NES-W8-FRG",
+            "wild-gunman": "NES-WG-ESP",
+            "wizards-and-warriors": "NES-WW-FRG",
+            "wizards-and-warriors-ii": "NES-IR-ESP",
+            "wizards-and-warriors-iii": "NES-BW-ESP",
+            "wrecking-crew": "NES-WR-ESP",
+            "wwf-wrestlemania-steel-cage": "NES-WS-ESP",
+            "xevious": "NES-XV-FRG",
+            "zelda-ii": "NES-AL-ESP"
+        };
+
+        const manuals = [
+            { name: "A Boy and his Blob", file: "a-boy-and-his-blob.pdf", category: "games" },
+            { name: "Addams Family", file: "addams-family.pdf", category: "games" },
+            { name: "Adventure Island Classic", file: "adventure-island-classic.pdf", category: "games" },
+            { name: "Adventure Island Part II", file: "adventure-island-part-ii.pdf", category: "games" },
+            { name: "Adventures in the Magic Kingdom", file: "adventures-in-the-magic-kingdom.pdf", category: "games" },
+            { name: "Adventures of Bayou Billy", file: "adventures-of-bayou-billy.pdf", category: "games" },
+            { name: "Adventures of Lolo", file: "adventures-of-lolo.pdf", category: "games" },
+            { name: "Adventures of Lolo 2", file: "adventures-of-lolo-2.pdf", category: "games" },
+            { name: "Adventures of Lolo 3", file: "adventures-of-lolo-3.pdf", category: "games" },
+            { name: "Air Fortress", file: "air-fortress.pdf", category: "games" },
+            { name: "Airwolf", file: "airwolf.pdf", category: "games" },
+            { name: "Alpha Mission", file: "alpha-mission.pdf", category: "games" },
+            { name: "Arch Rivals", file: "arch-rivals.pdf", category: "games" },
+            { name: "Asterix", file: "asterix.pdf", category: "games" },
+            { name: "Astyanax", file: "astyanax.pdf", category: "games" },
+            { name: "Athletic World", file: "athletic-world.pdf", category: "games" },
+            { name: "Bad Dudes vs Dragonninja", file: "bad-dudes-vs-dragonninja.pdf", category: "games" },
+            { name: "Balloon Fight", file: "balloon-fight.pdf", category: "games" },
+            { name: "Barker Bills Trick Shooting", file: "barker-bills-trick-shooting.pdf", category: "games" },
+            { name: "Baseball", file: "baseball.pdf", category: "games" },
+            { name: "Batman Return of the Joker", file: "batman-return-of-the-joker.pdf", category: "games" },
+            { name: "Batman The Video Game", file: "batman-the-video-game.pdf", category: "games" },
+            { name: "Battle of Olympus", file: "battle-of-olympus.pdf", category: "games" },
+            { name: "Battletoads", file: "battletoads.pdf", category: "games" },
+            { name: "Best of the Best", file: "best-of-the-best.pdf", category: "games" },
+            { name: "Bigfoot", file: "bigfoot.pdf", category: "games" },
+            { name: "Bionic Commando", file: "bionic-commando.pdf", category: "games" },
+            { name: "Blades of Steel", file: "blades-of-steel.pdf", category: "games" },
+            { name: "Blaster Master", file: "blaster-master.pdf", category: "games" },
+            { name: "Blue Shadow", file: "blue-shadow.pdf", category: "games" },
+            { name: "Blues Brothers", file: "blues-brothers.pdf", category: "games" },
+            { name: "Boulder Dash", file: "boulder-dash.pdf", category: "games" },
+            { name: "Bubble Bobble", file: "bubble-bobble.pdf", category: "games" },
+            { name: "Bugs Bunny Blowout", file: "bugs-bunny-blowout.pdf", category: "games" },
+            { name: "Burai Fighter", file: "burai-fighter.pdf", category: "games" },
+            { name: "California Games", file: "california-games.pdf", category: "games" },
+            { name: "Captain Planet", file: "captain-planet.pdf", category: "games" },
+            { name: "Captain Skyhawk", file: "captain-skyhawk.pdf", category: "games" },
+            { name: "Castelian", file: "castelian.pdf", category: "games" },
+            { name: "Castlevania", file: "castlevania.pdf", category: "games" },
+            { name: "Castlevania II", file: "castlevania-ii.pdf", category: "games" },
+            { name: "Championship Rally", file: "championship-rally.pdf", category: "games" },
+            { name: "Chessmaster", file: "chessmaster.pdf", category: "games" },
+            { name: "Chip n Dale Rescue Rangers", file: "chip-n-dale-rescue-rangers.pdf", category: "games" },
+            { name: "Chip n Dale Rescue Rangers 2", file: "chip-n-dale-rescue-rangers-2.pdf", category: "games" },
+            { name: "City Connection", file: "city-connection.pdf", category: "games" },
+            { name: "Cobra Triangle", file: "cobra-triangle.pdf", category: "games" },
+            { name: "Corvette ZR-1", file: "corvette-zr-1.pdf", category: "games" },
+            { name: "Crackout", file: "crackout.pdf", category: "games" },
+            { name: "Darkman", file: "darkman.pdf", category: "games" },
+            { name: "Days of Thunder", file: "days-of-thunder.pdf", category: "games" },
+            { name: "Die Hard", file: "die-hard.pdf", category: "games" },
+            { name: "Digger T Rock", file: "digger-t-rock.pdf", category: "games" },
+            { name: "Donkey Kong 3", file: "donkey-kong-3.pdf", category: "games" },
+            { name: "Donkey Kong Classics", file: "donkey-kong-classics.pdf", category: "games" },
+            { name: "Donkey Kong Jr", file: "donkey-kong-jr.pdf", category: "games" },
+            { name: "Donkey Kong Jr Math", file: "donkey-kong-jr-math.pdf", category: "games" },
+            { name: "Double Dragon", file: "double-dragon.pdf", category: "games" },
+            { name: "Double Dragon II", file: "double-dragon-ii.pdf", category: "games" },
+            { name: "Double Dragon III", file: "double-dragon-iii.pdf", category: "games" },
+            { name: "Double Dribble", file: "double-dribble.pdf", category: "games" },
+            { name: "Dr Mario", file: "dr-mario.pdf", category: "games" },
+            { name: "Dragon Ball", file: "dragon-ball.pdf", category: "games" },
+            { name: "Dragons Lair", file: "dragons-lair.pdf", category: "games" },
+            { name: "Duck Hunt", file: "duck-hunt.pdf", category: "games" },
+            { name: "Duck Tales", file: "duck-tales.pdf", category: "games" },
+            { name: "Duck Tales 2", file: "duck-tales-2.pdf", category: "games" },
+            { name: "Dynablaster", file: "dynablaster.pdf", category: "games" },
+            { name: "Elite", file: "elite.pdf", category: "games" },
+            { name: "Excitebike", file: "excitebike.pdf", category: "games" },
+            { name: "Faxanadu", file: "faxanadu.pdf", category: "games" },
+            { name: "Festers Quest", file: "festers-quest.pdf", category: "games" },
+            { name: "Fighting Golf", file: "fighting-golf.pdf", category: "games" },
+            { name: "Flintstones", file: "flintstones.pdf", category: "games" },
+            { name: "Four Players Tennis", file: "four-players-tennis.pdf", category: "games" },
+            { name: "Galaga", file: "galaga.pdf", category: "games" },
+            { name: "Galaxy 5000", file: "galaxy-5000.pdf", category: "games" },
+            { name: "Gauntlet II", file: "gauntlet-ii.pdf", category: "games" },
+            { name: "George Foremans KO Boxing", file: "george-foremans-ko-boxing.pdf", category: "games" },
+            { name: "Ghost n Goblins", file: "ghost-n-goblins.pdf", category: "games" },
+            { name: "Ghostbusters II", file: "ghostbusters-ii.pdf", category: "games" },
+            { name: "Goal", file: "goal.pdf", category: "games" },
+            { name: "Goal 2", file: "goal-2.pdf", category: "games" },
+            { name: "Godzilla", file: "godzilla.pdf", category: "games" },
+            { name: "Golf", file: "golf.pdf", category: "games" },
+            { name: "Goonies II", file: "goonies-ii.pdf", category: "games" },
+            { name: "Gradius", file: "gradius.pdf", category: "games" },
+            { name: "Gremlins 2", file: "gremlins-2.pdf", category: "games" },
+            { name: "Guardian Legend", file: "guardian-legend.pdf", category: "games" },
+            { name: "Guerrilla War", file: "guerrilla-war.pdf", category: "games" },
+            { name: "Gumshoe", file: "gumshoe.pdf", category: "games" },
+            { name: "Gun Smoke", file: "gun-smoke.pdf", category: "games" },
+            { name: "Hammerin Harry", file: "hammerin-harry.pdf", category: "games" },
+            { name: "High Speed", file: "high-speed.pdf", category: "games" },
+            { name: "Hogans Alley", file: "hogans-alley.pdf", category: "games" },
+            { name: "Hook", file: "hook.pdf", category: "games" },
+            { name: "Hoops", file: "hoops.pdf", category: "games" },
+            { name: "Hudson Hawk", file: "hudson-hawk.pdf", category: "games" },
+            { name: "Hunt for Red October", file: "hunt-for-red-october.pdf", category: "games" },
+            { name: "Ice Climber", file: "ice-climber.pdf", category: "games" },
+            { name: "Ice Hockey", file: "ice-hockey.pdf", category: "games" },
+            { name: "Ikari Warriors", file: "ikari-warriors.pdf", category: "games" },
+            { name: "Incredible Crash Dummies", file: "incredible-crash-dummies.pdf", category: "games" },
+            { name: "Indiana Jones Last Crusade", file: "indiana-jones-last-crusade.pdf", category: "games" },
+            { name: "Indy Heat", file: "indy-heat.pdf", category: "games" },
+            { name: "Iron Tank", file: "iron-tank.pdf", category: "games" },
+            { name: "Isolated Warrior", file: "isolated-warrior.pdf", category: "games" },
+            { name: "Ivan Stewarts Super Off Road", file: "ivan-stewarts-super-off-road.pdf", category: "games" },
+            { name: "Jack Nicklaus Greatest 18 Holes", file: "jack-nicklaus-greatest-18-holes.pdf", category: "games" },
+            { name: "Jackie Chans Action Kung Fu", file: "jackie-chans-action-kung-fu.pdf", category: "games" },
+            { name: "Jetsons", file: "jetsons.pdf", category: "games" },
+            { name: "Jimmy Connors Tennis", file: "jimmy-connors-tennis.pdf", category: "games" },
+            { name: "Joe and Mac", file: "joe-and-mac.pdf", category: "games" },
+            { name: "Journey to Silius", file: "journey-to-silius.pdf", category: "games" },
+            { name: "Jungle Book", file: "jungle-book.pdf", category: "games" },
+            { name: "Kabuki Quantum Fighter", file: "kabuki-quantum-fighter.pdf", category: "games" },
+            { name: "Kick Off", file: "kick-off.pdf", category: "games" },
+            { name: "Kickle Cubicle", file: "kickle-cubicle.pdf", category: "games" },
+            { name: "Kid Icarus", file: "kid-icarus.pdf", category: "games" },
+            { name: "Kirbys Adventure", file: "kirbys-adventure.pdf", category: "games" },
+            { name: "Knight Rider", file: "knight-rider.pdf", category: "games" },
+            { name: "Konami Hyper Soccer", file: "konami-hyper-soccer.pdf", category: "games" },
+            { name: "Kung Fu", file: "kung-fu.pdf", category: "games" },
+            { name: "Legend of Prince Valiant", file: "legend-of-prince-valiant.pdf", category: "games" },
+            { name: "Legend of Zelda", file: "legend-of-zelda.pdf", category: "games" },
+            { name: "Lemmings", file: "lemmings.pdf", category: "games" },
+            { name: "Life Force", file: "life-force.pdf", category: "games" },
+            { name: "Little Nemo", file: "little-nemo.pdf", category: "games" },
+            { name: "Little Samson", file: "little-samson.pdf", category: "games" },
+            { name: "Low G Man", file: "low-g-man.pdf", category: "games" },
+            { name: "Lunar Pool", file: "lunar-pool.pdf", category: "games" },
+            { name: "Mach Rider", file: "mach-rider.pdf", category: "games" },
+            { name: "Maniac Mansion", file: "maniac-mansion.pdf", category: "games" },
+            { name: "Marble Madness", file: "marble-madness.pdf", category: "games" },
+            { name: "Mario and Yoshi", file: "mario-and-yoshi.pdf", category: "games" },
+            { name: "Mario Bros", file: "mario-bros.pdf", category: "games" },
+            { name: "McDonaldland", file: "mcdonaldland.pdf", category: "games" },
+            { name: "Mega Man", file: "mega-man.pdf", category: "games" },
+            { name: "Mega Man 2", file: "mega-man-2.pdf", category: "games" },
+            { name: "Mega Man 3", file: "mega-man-3.pdf", category: "games" },
+            { name: "Mega Man 4", file: "mega-man-4.pdf", category: "games" },
+            { name: "Mega Man 5", file: "mega-man-5.pdf", category: "games" },
+            { name: "Metal Gear", file: "metal-gear.pdf", category: "games" },
+            { name: "Metroid", file: "metroid.pdf", category: "games" },
+            { name: "Mighty Bombjack", file: "mighty-bombjack.pdf", category: "games" },
+            { name: "Mike Tysons Punch-Out", file: "mike-tysons-punch-out.pdf", category: "games" },
+            { name: "Mission Impossible", file: "mission-impossible.pdf", category: "games" },
+            { name: "NES Open Tournament Golf", file: "nes-open-tournament-golf.pdf", category: "games" },
+            { name: "New Ghostbusters II", file: "new-ghostbusters-ii.pdf", category: "games" },
+            { name: "Newzealand Story", file: "newzealand-story.pdf", category: "games" },
+            { name: "Nintendo World Cup", file: "nintendo-world-cup.pdf", category: "games" },
+            { name: "North and South", file: "north-and-south.pdf", category: "games" },
+            { name: "Operation Wolf", file: "operation-wolf.pdf", category: "games" },
+            { name: "P.O.W.", file: "pow.pdf", category: "games" },
+            { name: "Panic Restaurant", file: "panic-restaurant.pdf", category: "games" },
+            { name: "Paperboy", file: "paperboy.pdf", category: "games" },
+            { name: "Paperboy 2", file: "paperboy-2.pdf", category: "games" },
+            { name: "Parasol Stars", file: "parasol-stars.pdf", category: "games" },
+            { name: "Phantom Air Mission", file: "phantom-air-mission.pdf", category: "games" },
+            { name: "Pin-Bot", file: "pin-bot.pdf", category: "games" },
+            { name: "Pinball", file: "pinball.pdf", category: "games" },
+            { name: "Popeye", file: "popeye.pdf", category: "games" },
+            { name: "Power Blade", file: "power-blade.pdf", category: "games" },
+            { name: "Prince of Persia", file: "prince-of-persia.pdf", category: "games" },
+            { name: "Pro Wrestling", file: "pro-wrestling.pdf", category: "games" },
+            { name: "Probotector", file: "probotector.pdf", category: "games" },
+            { name: "Punch-Out", file: "punch-out.pdf", category: "games" },
+            { name: "Puzznic", file: "puzznic.pdf", category: "games" },
+            { name: "R.C. Pro-Am", file: "rc-pro-am.pdf", category: "games" },
+            { name: "Racket Attack", file: "racket-attack.pdf", category: "games" },
+            { name: "Rad Gravity", file: "rad-gravity.pdf", category: "games" },
+            { name: "Rad Racer", file: "rad-racer.pdf", category: "games" },
+            { name: "Rad Racer (Folleto)", file: "rad-racer-folleto.pdf", category: "games" },
+            { name: "Rainbow Islands", file: "rainbow-islands.pdf", category: "games" },
+            { name: "Rescue Embassy Mission", file: "rescue-embassy-mission.pdf", category: "games" },
+            { name: "Road Fighter", file: "road-fighter.pdf", category: "games" },
+            { name: "RoadBlasters", file: "roadblasters.pdf", category: "games" },
+            { name: "Robin Hood", file: "robin-hood.pdf", category: "games" },
+            { name: "RoboCop", file: "robocop.pdf", category: "games" },
+            { name: "RoboCop 2", file: "robocop-2.pdf", category: "games" },
+            { name: "RoboCop 3", file: "robocop-3.pdf", category: "games" },
+            { name: "RoboWarrior", file: "robowarrior.pdf", category: "games" },
+            { name: "Rockin Kats", file: "rockin-kats.pdf", category: "games" },
+            { name: "Rodland", file: "rodland.pdf", category: "games" },
+            { name: "Rollergames", file: "rollergames.pdf", category: "games" },
+            { name: "Rushn Attack", file: "rushn-attack.pdf", category: "games" },
+            { name: "Rygar", file: "rygar.pdf", category: "games" },
+            { name: "Section-Z", file: "section-z.pdf", category: "games" },
+            { name: "Shadow Warriors", file: "shadow-warriors.pdf", category: "games" },
+            { name: "Shadow Warriors II", file: "shadow-warriors-ii.pdf", category: "games" },
+            { name: "Shatterhand", file: "shatterhand.pdf", category: "games" },
+            { name: "Silent Service", file: "silent-service.pdf", category: "games" },
+            { name: "Simpsons Bart vs Space Mutants", file: "simpsons-bart-vs-space-mutants.pdf", category: "games" },
+            { name: "Simpsons Bart vs The World", file: "simpsons-bart-vs-the-world.pdf", category: "games" },
+            { name: "Skate or Die", file: "skate-or-die.pdf", category: "games" },
+            { name: "Ski or Die", file: "ski-or-die.pdf", category: "games" },
+            { name: "Smash T.V.", file: "smash-tv.pdf", category: "games" },
+            { name: "Smurfs", file: "smurfs.pdf", category: "games" },
+            { name: "Snake Rattle n Roll", file: "snake-rattle-n-roll.pdf", category: "games" },
+            { name: "Snakes Revenge", file: "snakes-revenge.pdf", category: "games" },
+            { name: "Snow Brothers", file: "snow-brothers.pdf", category: "games" },
+            { name: "Snowboard Challenge", file: "snowboard-challenge.pdf", category: "games" },
+            { name: "Soccer", file: "soccer.pdf", category: "games" },
+            { name: "Solar Jetman", file: "solar-jetman.pdf", category: "games" },
+            { name: "Solomons Key", file: "solomons-key.pdf", category: "games" },
+            { name: "Solomons Key 2", file: "solomons-key-2.pdf", category: "games" },
+            { name: "Solstice", file: "solstice.pdf", category: "games" },
+            { name: "Spider-Man Return of Sinister Six", file: "spider-man-return-of-sinister-six.pdf", category: "games" },
+            { name: "Star Force", file: "star-force.pdf", category: "games" },
+            { name: "Star Wars", file: "star-wars.pdf", category: "games" },
+            { name: "Star Wars Empire Strikes Back", file: "star-wars-empire-strikes-back.pdf", category: "games" },
+            { name: "StarTropics", file: "startropics.pdf", category: "games" },
+            { name: "Stealth ATF", file: "stealth-atf.pdf", category: "games" },
+            { name: "Street Gangs", file: "street-gangs.pdf", category: "games" },
+            { name: "Super Mario Bros", file: "super-mario-bros.pdf", category: "games" },
+            { name: "Super Mario Bros and Duck Hunt", file: "super-mario-bros-and-duck-hunt.pdf", category: "games" },
+            { name: "Super Mario Bros and Tetris and Nintendo World Cup", file: "super-mario-bros-and-tetris-and-nintendo-world-cup.pdf", category: "games" },
+            { name: "Super Mario Bros 2", file: "super-mario-bros-2.pdf", category: "games" },
+            { name: "Super Mario Bros 3", file: "super-mario-bros-3.pdf", category: "games" },
+            { name: "Super Spike VBall", file: "super-spike-vball.pdf", category: "games" },
+            { name: "Super Spy Hunter", file: "super-spy-hunter.pdf", category: "games" },
+            { name: "Super Turrican", file: "super-turrican.pdf", category: "games" },
+            { name: "Sword Master", file: "sword-master.pdf", category: "games" },
+            { name: "Tale Spin", file: "tale-spin.pdf", category: "games" },
+            { name: "Tecmo Cup Football", file: "tecmo-cup-football.pdf", category: "games" },
+            { name: "Tecmo World Cup Soccer", file: "tecmo-world-cup-soccer.pdf", category: "games" },
+            { name: "Tecmo World Wrestling", file: "tecmo-world-wrestling.pdf", category: "games" },
+            { name: "Teenage Mutant Hero Turtles", file: "teenage-mutant-hero-turtles.pdf", category: "games" },
+            { name: "Teenage Mutant Hero Turtles II", file: "teenage-mutant-hero-turtles-ii.pdf", category: "games" },
+            { name: "Teenage Mutant Hero Turtles Tournament Fighters", file: "teenage-mutant-hero-turtles-tournament-fighters.pdf", category: "games" },
+            { name: "Tennis", file: "tennis.pdf", category: "games" },
+            { name: "Terminator 2", file: "terminator-2.pdf", category: "games" },
+            { name: "Tetris", file: "tetris.pdf", category: "games" },
+            { name: "Tetris 2", file: "tetris-2.pdf", category: "games" },
+            { name: "Tiger-Heli", file: "tiger-heli.pdf", category: "games" },
+            { name: "Time Lord", file: "time-lord.pdf", category: "games" },
+            { name: "Tiny Toon Adventures 2", file: "tiny-toon-adventures-2.pdf", category: "games" },
+            { name: "To the Earth", file: "to-the-earth.pdf", category: "games" },
+            { name: "Tom and Jerry", file: "tom-and-jerry.pdf", category: "games" },
+            { name: "Top Gun", file: "top-gun.pdf", category: "games" },
+            { name: "Top Gun Second Mission", file: "top-gun-second-mission.pdf", category: "games" },
+            { name: "Total Recall", file: "total-recall.pdf", category: "games" },
+            { name: "Totally Rad", file: "totally-rad.pdf", category: "games" },
+            { name: "Track and Field II", file: "track-and-field-ii.pdf", category: "games" },
+            { name: "Track and Field in Barcelona", file: "track-and-field-in-barcelona.pdf", category: "games" },
+            { name: "Trog", file: "trog.pdf", category: "games" },
+            { name: "Trojan", file: "trojan.pdf", category: "games" },
+            { name: "Turbo Racing", file: "turbo-racing.pdf", category: "games" },
+            { name: "Ufouria", file: "ufouria.pdf", category: "games" },
+            { name: "Ultimate Air Combat", file: "ultimate-air-combat.pdf", category: "games" },
+            { name: "Ultimate Stuntman", file: "ultimate-stuntman.pdf", category: "games" },
+            { name: "Warios Woods", file: "warios-woods.pdf", category: "games" },
+            { name: "Werewolf", file: "werewolf.pdf", category: "games" },
+            { name: "Wild Gunman", file: "wild-gunman.pdf", category: "games" },
+            { name: "Willow", file: "willow.pdf", category: "games" },
+            { name: "Wizards and Warriors", file: "wizards-and-warriors.pdf", category: "games" },
+            { name: "Wizards and Warriors II", file: "wizards-and-warriors-ii.pdf", category: "games" },
+            { name: "Wizards and Warriors III", file: "wizards-and-warriors-iii.pdf", category: "games" },
+            { name: "World Champ", file: "world-champ.pdf", category: "games" },
+            { name: "Wrath of Black Manta", file: "wrath-of-black-manta.pdf", category: "games" },
+            { name: "Wrecking Crew", file: "wrecking-crew.pdf", category: "games" },
+            { name: "WWF King of the Ring", file: "wwf-king-of-the-ring.pdf", category: "games" },
+            { name: "WWF Wrestlemania", file: "wwf-wrestlemania.pdf", category: "games" },
+            { name: "WWF Wrestlemania Challenge", file: "wwf-wrestlemania-challenge.pdf", category: "games" },
+            { name: "WWF Wrestlemania Steel Cage", file: "wwf-wrestlemania-steel-cage.pdf", category: "games" },
+            { name: "Xevious", file: "xevious.pdf", category: "games" },
+            { name: "Zelda II", file: "zelda-ii.pdf", category: "games" },
+
+            // Hardware
+            { name: "Cleaning Kit", file: "hardware-cleaning-kit.pdf", category: "hardware" },
+            { name: "Control Deck", file: "hardware-control-deck.pdf", category: "hardware" },
+            { name: "Configuración Antena", file: "hardware-configuracion-antena.pdf", category: "hardware" },
+            { name: "Game Genie (Precauciones)", file: "hardware-game-genie-precauciones.pdf", category: "hardware" },
+            { name: "Game Genie", file: "hardware-game-genie.pdf", category: "hardware" },
+            { name: "Laser Scope", file: "hardware-laser-scope.pdf", category: "hardware" },
+            { name: "NES Advantage", file: "hardware-nes-advantage.pdf", category: "hardware" },
+            { name: "NES Four Score", file: "hardware-nes-four-score.pdf", category: "hardware" },
+            { name: "NES MAX", file: "hardware-nes-max.pdf", category: "hardware" },
+            { name: "Wireless-InfraRed", file: "hardware-wireless-infrared.pdf", category: "hardware" },
+            { name: "Zapper", file: "hardware-zapper.pdf", category: "hardware" },
+
+            // Publicidad
+            { name: "Ficha Club Nintendo", file: "publicidad-ficha-club-nintendo.pdf", category: "publicidad" },
+            { name: "Publicidad Konami", file: "publicidad-publicidad-konami.pdf", category: "publicidad" },
+            { name: "Publicidad Nintendo", file: "publicidad-publicidad-nintendo.pdf", category: "publicidad" },
+        ];
+
+        let currentCategory = 'all';
+
+        function renderManuals(filteredManuals) {
+            const container = document.getElementById('manualsContainer');
+
+            if (currentCategory === 'all') {
+                // Group by category
+                const categories = {
+                    games: filteredManuals.filter(m => m.category === 'games'),
+                    hardware: filteredManuals.filter(m => m.category === 'hardware'),
+                    publicidad: filteredManuals.filter(m => m.category === 'publicidad')
+                };
+
+                let html = '';
+
+                if (categories.games.length > 0) {
+                    html += `
+                        <div class="category-section">
+                            <h2 class="category-title">🎮 Juegos (${categories.games.length})</h2>
+                            <div class="manuals-grid">
+                                ${categories.games.map(manual => {
+                                    const code = gameCodes[manual.file.replace('.pdf', '')];
+                                    return `
+                                    <div class="manual-item">
+                                        <a href="manuals/${manual.file}" target="_blank">
+                                            <span class="manual-name">${manual.name}</span>
+                                            ${code ? `<span class="game-code">${code}</span>` : ''}
+                                        </a>
+                                    </div>
+                                `}).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                if (categories.hardware.length > 0) {
+                    html += `
+                        <div class="category-section">
+                            <h2 class="category-title">🔧 Hardware (${categories.hardware.length})</h2>
+                            <div class="manuals-grid">
+                                ${categories.hardware.map(manual => {
+                                    const code = gameCodes[manual.file.replace('.pdf', '')];
+                                    return `
+                                    <div class="manual-item">
+                                        <a href="manuals/${manual.file}" target="_blank">
+                                            <span class="manual-name">${manual.name}</span>
+                                            ${code ? `<span class="game-code">${code}</span>` : ''}
+                                        </a>
+                                    </div>
+                                `}).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                if (categories.publicidad.length > 0) {
+                    html += `
+                        <div class="category-section">
+                            <h2 class="category-title">📰 Publicidad (${categories.publicidad.length})</h2>
+                            <div class="manuals-grid">
+                                ${categories.publicidad.map(manual => {
+                                    const code = gameCodes[manual.file.replace('.pdf', '')];
+                                    return `
+                                    <div class="manual-item">
+                                        <a href="manuals/${manual.file}" target="_blank">
+                                            <span class="manual-name">${manual.name}</span>
+                                            ${code ? `<span class="game-code">${code}</span>` : ''}
+                                        </a>
+                                    </div>
+                                `}).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                container.innerHTML = html;
+            } else {
+                // Single category view
+                const categoryNames = {
+                    games: '🎮 Juegos',
+                    hardware: '🔧 Hardware',
+                    publicidad: '📰 Publicidad'
+                };
+
+                container.innerHTML = `
+                    <div class="category-section">
+                        <h2 class="category-title">${categoryNames[currentCategory]} (${filteredManuals.length})</h2>
+                        <div class="manuals-grid">
+                            ${filteredManuals.map(manual => {
+                                const code = gameCodes[manual.file.replace('.pdf', '')];
+                                return `
+                                <div class="manual-item">
+                                    <a href="manuals/${manual.file}" target="_blank">
+                                        <span class="manual-name">${manual.name}</span>
+                                        ${code ? `<span class="game-code">${code}</span>` : ''}
+                                    </a>
+                                </div>
+                            `}).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            document.getElementById('visibleCount').textContent = filteredManuals.length;
+        }
+
+        function filterManuals() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+            let filtered = manuals;
+
+            // Filter by category
+            if (currentCategory !== 'all') {
+                filtered = filtered.filter(m => m.category === currentCategory);
+            }
+
+            // Filter by search term
+            if (searchTerm) {
+                filtered = filtered.filter(m =>
+                    m.name.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            renderManuals(filtered);
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', filterManuals);
+
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentCategory = this.dataset.category;
+                filterManuals();
+            });
+        });
+
+        // Initialize
+        document.getElementById('totalCount').textContent = manuals.length;
+        renderManuals(manuals);
+    </script>
+</body>
+</html>
