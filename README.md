@@ -37,7 +37,29 @@ python download_nes_manuals.py
 - `TEST_MODE = True/False` - Modo de prueba
 - `DELAY_BETWEEN_DOWNLOADS = 3` - Segundos entre descargas
 
-### 2. Extractor de Códigos (OCR)
+### 2. Generador de Miniaturas
+
+```bash
+python generate_thumbnails.py
+```
+
+**Características:**
+- Genera imágenes JPEG de la primera página de cada manual
+- Miniaturas de 300px de ancho (alto proporcional)
+- Optimizadas para web (~15-35 KB cada una)
+- Total: ~5 MB para todas las miniaturas
+
+**Requisitos:**
+```bash
+pip install PyMuPDF pillow
+```
+
+**Configuración:**
+- `TEST_MODE = True/False` - Procesar todos o solo algunos PDFs
+- `THUMBNAIL_WIDTH = 300` - Ancho de las miniaturas en píxeles
+- `DPI = 150` - Calidad de renderizado
+
+### 3. Extractor de Códigos (OCR)
 
 ```bash
 python extract_codes.py
@@ -91,7 +113,9 @@ Los códigos de juego siguen el formato `NES-XX-CCC`:
 manuales-nes/
 ├── index.html                   # Sitio web principal
 ├── manuals/                     # PDFs de los manuales (281 archivos)
+├── thumbnails/                  # Miniaturas de portadas (280 imágenes)
 ├── download_nes_manuals.py      # Script de descarga
+├── generate_thumbnails.py       # Script de generación de miniaturas
 ├── extract_codes.py             # Script de extracción OCR
 ├── game_codes.json              # Códigos extraídos
 ├── README.md                    # Este archivo
